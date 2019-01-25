@@ -1,0 +1,8 @@
+{
+    "name": "Cura Debug Tools",
+    "author": "Lipu Fei",
+    "version": "1.0.0",
+    "api": "6.0",
+    "supported_sdk_versions": ["6.0"],
+    "description": "Misc Debugging Tools for Cura"
+}
