@@ -7,10 +7,6 @@ fi
 mkdir -p "${REPO_DIR}"
 pushd "${REPO_DIR}" > /dev/null
 
-# Checkout Uranium and Cura
-git clone -b master https://github.com/Ultimaker/Uranium.git
-git clone -b master https://github.com/Ultimaker/Cura.git
-
 # Set environment variables
 export PYTHONPATH="${WORK_DIR}/Uranium:${PYTHONPATH}"
 export PYTHONPATH="${WORK_DIR}/Cura:${PYTHONPATH}"
