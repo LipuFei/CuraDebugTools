@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-if [[ -z "${WORK_DIR}" ]]; then
-    WORK_DIR="/srv/cura"
+if [[ -z "${REPO_DIR}" ]]; then
+    REPO_DIR="/srv/cura"
 fi
 
-mkdir -p "${WORK_DIR}"
-pushd "${WORK_DIR}" > /dev/null
+mkdir -p "${REPO_DIR}"
+pushd "${REPO_DIR}" > /dev/null
 
 # Checkout Uranium and Cura
 git clone -b master https://github.com/Ultimaker/Uranium.git
