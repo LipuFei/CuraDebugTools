@@ -1,4 +1,4 @@
-
+import os
 from typing import TYPE_CHECKING
 
 from PyQt5.QtCore import QObject, QTimer
@@ -32,8 +32,11 @@ class CuraDebugTools(QObject, Extension):
         self._timer.start(10)
 
     def _dumpAllMachineDefaultSettings(self) -> None:
+        default_output_dir = "dump_machines"
+        default_output_dir = os.environ.get("CURADEBUGTOOLS_DUMPMACHINE_OUTPUTDIR", default_output_dir)
+
         dumper = MachineSettingsDumper()
-        dumper.dumpAllMachinesDefaultSettings("C:/workspace/test/dump_machines")
+        dumper.dumpAllMachinesDefaultSettings(default_output_dir)
 
     def _show_print_devices(self) -> None:
         machine_manager = self._application.getMachineManager()
