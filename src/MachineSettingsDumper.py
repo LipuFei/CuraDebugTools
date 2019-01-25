@@ -1,5 +1,6 @@
 from collections import OrderedDict
 import os
+import sys
 from typing import TYPE_CHECKING, Union, Dict, Any
 
 import yaml
@@ -29,6 +30,7 @@ class MachineSettingsDumper:
         machine_manager = self._application.getMachineManager()
 
         machine_definition_metadata_list = container_registry.findDefinitionContainersMetadata(type = "machine")
+        machine_definition_metadata_list = sorted(machine_definition_metadata_list, key = lambda x: x["id"])
 
         for machine_def_metadata in machine_definition_metadata_list:
             machine_def_id = machine_def_metadata["id"]
@@ -39,9 +41,12 @@ class MachineSettingsDumper:
             Logger.log("i", "Creating machine [%s] ...", machine_def_id)
             global_stack = CuraStackBuilder.createMachine(machine_name, machine_def_id)
 
+            # Some resolve functions depends on the active machine, so this machine needs to be activated first.
             machine_manager.setActiveMachine(global_stack.getId())
-
             self.dumpGlobalStack(global_stack, file_name)
+
+        Logger.log("i", "All machines processed, Exiting Cura ...")
+        sys.exit(0)
 
     #
     # Dumps all settings of the given GlobalStack to a YAML file with the given file name.
