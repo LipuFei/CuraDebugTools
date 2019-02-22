@@ -20,6 +20,14 @@ class MachineSettingsDumper:
     def __init__(self) -> None:
         self._application = CuraApplication.getInstance()
 
+    def dumpActiveMachineSettings(self, output_dir: str) -> None:
+        yaml.add_representer(OrderedDict, represent_ordereddict)
+
+        file_name = os.path.join(output_dir, "output.yaml")
+
+        machine_manager = self._application.getMachineManager()
+        self.dumpGlobalStack(machine_manager.activeMachine, file_name)
+
     def dumpAllMachinesDefaultSettings(self, output_dir: str) -> None:
         yaml.add_representer(OrderedDict, represent_ordereddict)
 

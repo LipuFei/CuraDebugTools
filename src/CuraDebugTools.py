@@ -20,12 +20,18 @@ class CuraDebugTools(QObject, Extension):
         self._application = application
 
         self.setMenuName("Debug Tools")
+        self.addMenuItem("Dump active machine settings", self._dump_active_machine_settings)
         self.addMenuItem("Check Print Devices", self._show_print_devices)
 
         self._application.initializationFinished.connect(self._onApplicationInitialized)
 
     def _onApplicationInitialized(self) -> None:
+        pass
+
         # schedule a task that dumps all machine default settings
+        self._scheduleDumpAll()
+
+    def _scheduleDumpAll(self) -> None:
         self._timer = QTimer(self)
         self._timer.setSingleShot(True)
         self._timer.timeout.connect(self._dumpAllMachineDefaultSettings)
@@ -37,6 +43,12 @@ class CuraDebugTools(QObject, Extension):
 
         dumper = MachineSettingsDumper()
         dumper.dumpAllMachinesDefaultSettings(default_output_dir)
+
+    def _dump_active_machine_settings(self) -> None:
+        default_output_dir = "dump_machines"
+
+        dumper = MachineSettingsDumper()
+        dumper.dumpActiveMachineSettings(default_output_dir)
 
     def _show_print_devices(self) -> None:
         machine_manager = self._application.getMachineManager()
