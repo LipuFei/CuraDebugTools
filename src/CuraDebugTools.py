@@ -38,14 +38,14 @@ class CuraDebugTools(QObject, Extension):
         self._timer.start(10)
 
     def _dumpAllMachineDefaultSettings(self) -> None:
-        default_output_dir = "dump_machines"
+        default_output_dir = "machine_dumps"
         default_output_dir = os.environ.get("CURADEBUGTOOLS_DUMPMACHINE_OUTPUTDIR", default_output_dir)
 
         dumper = MachineSettingsDumper()
         dumper.dumpAllMachinesDefaultSettings(default_output_dir)
 
     def _dump_active_machine_settings(self) -> None:
-        default_output_dir = "dump_machines"
+        default_output_dir = "machine_dumps"
 
         dumper = MachineSettingsDumper()
         dumper.dumpActiveMachineSettings(default_output_dir)
